@@ -7,6 +7,8 @@ class Pizza {
    	string topping;
 	string sauce;
 public:
+	Pizza(const string& typeOfDough): dough(typeOfDough), topping(""), sauce("") {}
+	Pizza(const string& typeOfDough, const string& typeOfTopping) : dough(typeOfDough), topping(typeOfTopping), sauce("") {}
 	Pizza(const string& typeOfDough, const string& typeOfTopping, const string& typeOfSauce) : dough(typeOfDough), topping(typeOfTopping), sauce(typeOfSauce) {}
 
 	void Topping(string value) { topping = value; }
