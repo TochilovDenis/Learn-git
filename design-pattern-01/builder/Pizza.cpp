@@ -2,13 +2,12 @@
 #include "pizza.h"
 
 int main() {
-	PizzaBuilder builder;
+	Pizza pizza =  PizzaBuilder().
+		SetTypeOfDough("Thin").
+		SetTypeOfTopping("Pineapple").
+		SetTypeOfSauce("Tomato").
+	       	build();
 
-    	builder.SetTypeOfDough("Thin");
-    	builder.SetTypeOfTopping("Pineapple");
-    	builder.SetTypeOfSauce("Tomato");
-
-    	Pizza pizza = builder.build();
     	pizza.Display();
     	return 0;
 }

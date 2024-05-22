@@ -22,7 +22,7 @@ class PizzaBuilder {
     	Pizza pizza;
 public:
     	Pizza build() { return pizza; }
-    	void SetTypeOfDough(string value)   { pizza.TypeOfDough(value); }
-	void SetTypeOfTopping(string value) { pizza.TypeOfToppings(value); }
-	void SetTypeOfSauce(string value)   { pizza.TypeOfSauce(value); }
+    	PizzaBuilder& SetTypeOfDough(string value)   { pizza.TypeOfDough(value);    return *this; }
+        PizzaBuilder& SetTypeOfTopping(string value) { pizza.TypeOfToppings(value); return *this; }
+	PizzaBuilder& SetTypeOfSauce(string value)   { pizza.TypeOfSauce(value);    return *this; }
 };
