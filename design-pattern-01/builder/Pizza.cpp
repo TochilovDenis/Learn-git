@@ -2,11 +2,11 @@
 #include "pizza.h"
 
 int main() {
-    Pizza pizza1("Thin", "Pepperoni");
-    pizza1.Display();
+    	Pizza pizza1("Thin", "Pepperoni", "Cheese sauce");
+    	pizza1.Display();
 
-    Pizza pizza2("Thick", "Mushrooms");
-    pizza2.Display();
+    	Pizza pizza2("Thick", "Mushrooms", "Tomato sauce");
+    	pizza2.Display();
 
-    return 0;
+    	return 0;
 }
