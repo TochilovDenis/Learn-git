@@ -4,21 +4,25 @@ using namespace std;
 
 class Pizza {
 	string dough;
-   	string topping;
-	string sauce;
+    	string topping;
+    	string sauce;
 public:
-	Pizza(const string& typeOfDough): dough(typeOfDough), topping(""), sauce("") {}
-	Pizza(const string& typeOfDough, const string& typeOfTopping) : dough(typeOfDough), topping(typeOfTopping), sauce("") {}
-	Pizza(const string& typeOfDough, const string& typeOfTopping, const string& typeOfSauce) : dough(typeOfDough), topping(typeOfTopping), sauce(typeOfSauce) {}
+    	Pizza() {}
+    	~Pizza() {}
 
-	void Topping(string value) { topping = value; }
-	string Topping() { return topping; }
-	void Dough(string value) { dough = value; }
-	string TypeOfDough() { return dough; }
-	void Sauce(string value) { sauce = value; }
-	string Sauce() { return sauce; }
-	
+    	void TypeOfDough(string value) { dough = value; }
+    	void TypeOfToppings(string value) { topping = value; }
+    	void TypeOfSauce(string value) { sauce = value; }
 	void Display() const {
-		cout << "Pizza with " << dough << " and " << topping <<" and " << sauce << ".\n"; 
+        	cout << "Pizza with " << dough << " and " << topping << " and " << sauce << ".\n";
 	}
+};
+
+class PizzaBuilder {
+    	Pizza pizza;
+public:
+    	Pizza build() { return pizza; }
+    	void SetTypeOfDough(string value)   { pizza.TypeOfDough(value); }
+	void SetTypeOfTopping(string value) { pizza.TypeOfToppings(value); }
+	void SetTypeOfSauce(string value)   { pizza.TypeOfSauce(value); }
 };
