@@ -1,13 +1,20 @@
-// lib-02.h
 #pragma once
 #include "logger.h"
 
 class Lib02 {
+	Logger mLogger;
 public:
-    void Print(Logger& logger);
+//	Lib02(Logger& logger) : mLogger(logger) {}
+
+    	void Print() {
+        	cout << "Это метод Print класса Lib02" << endl;
+        	mLogger.Info("Вызван метод Print класса Lib02");
+	}
+	
+	void LoggerAddress() { 
+		cout << "Адрес логгера в Lib02: " << &mLogger << endl;
+	}
+
 };
 
-void Lib02::Print(Logger& logger) {
-    cout << "Lib02 using Logger address: " << &logger << endl;
-}
 
