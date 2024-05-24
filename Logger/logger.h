@@ -7,7 +7,7 @@ enum class LoggingLevel { INFO = 10, DEBUG = 20};
 class Logger {
 	LoggingLevel mLevel;
 public:
-    	Logger(LoggingLevel level) : mLevel(level) {}
+// 	Logger(LoggingLevel level) : mLevel(level) {}
 
 	void setLevel(LoggingLevel level) { mLevel = level; }
 	void Info(const string& value) const {
