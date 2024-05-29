@@ -1,19 +1,13 @@
-#pragma once
 #include "logger.h"
 
-class Lib02 {
-	Logger mLogger;
+class Lib02
+{
+	Logger* logger;
 public:
-//	Lib02(Logger& logger) : mLogger(logger) {}
-	Lib02(LogginLevel level = INFO) { logger.setLevel(logginlevel); }
-    	void Print() {
-        	cout << "Это метод Print класса Lib02" << endl;
-        	mLogger.Info("Вызван метод Print класса Lib02");
+	Lib02() { logger = Logger::getLogger(); }
+	void Print() { 
+		logger->info("this is the info Print method of the lib02 class\n");
+		logger->debug("this is the debug Print method of the lib02 class\n");
 	}
-	
-	void LoggerAddress() { 
-		cout << "Адрес логгера в Lib02: " << &mLogger << endl;
-	}
+	void LoggerAddress() { cout << "logger address: " << Logger::getLogger() << endl; }
 };
-
-

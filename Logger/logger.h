@@ -1,24 +1,29 @@
-#pragma once
+#ifndef LOGGER_H
+#define LOGGER_H
+
 #include <iostream>
+#include <string>
 using namespace std;
 
-enum class LoggingLevel { INFO = 10, DEBUG = 20};
+enum LogLevel {
+    INFO,
+    DEBUG
+};
 
 class Logger {
-	LoggingLevel mLevel;
+private:
+    static Logger* instance;
+    LogLevel level;
+
+    Logger(LogLevel level) : level(level) {}
+
 public:
-// 	Logger(LoggingLevel level) : mLevel(level) {}
-	
-	void setLevel(LoggingLevel level) { mLevel = level; }
-	void Info(const string& value) const {
-		if (mLevel <= LoggingLevel::INFO) {
-			cout << "INFO: " << value << endl;
-		}
-	}
-	
-	void Debug(const string& value) const {
-		if (mLevel <= LoggingLevel::DEBUG) {
-			cout << "DEBUG: " << value << std::endl;
-		}
-	}
+    static Logger* getLogger();
+
+    void setLevel(LogLevel level);
+
+    void info(const std::string& message);
+    void debug(const std::string& message);
 };
+
+#endif // LOGGER_H
