@@ -8,7 +8,7 @@ class Logger {
 	LoggingLevel mLevel;
 public:
 // 	Logger(LoggingLevel level) : mLevel(level) {}
-
+	
 	void setLevel(LoggingLevel level) { mLevel = level; }
 	void Info(const string& value) const {
 		if (mLevel <= LoggingLevel::INFO) {
