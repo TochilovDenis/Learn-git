@@ -16,11 +16,15 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <string>
 using namespace std;
 
-const int namesCount = 5; // Количество имен
-string names[] = { "Паша", "Вася", "Денис", "Иван", "Николай" };
 
+#define CASHIER 0
+#define MANAGER 1
+#define ACCOUNTANT 2
+#define LAZYDEVELOPER 3
+#define TOTALWORKERS 4
 
 // Работник
 class Employee {
@@ -61,15 +65,39 @@ public:
 	}
 };
 
+
+// ЛенивыйПрограммист - Адаптер
+class LazyProgrammer {
+	string mName;
+public:
+	LazyProgrammer() {}
+	LazyProgrammer(string n) : mName(n) {}
+	void KindatoWork() {
+		string result = (rand() % 100) % 2 == 0 ?
+			"Ленивый " + mName + " программист работает" :
+			"Ленивый " + mName + " программист не работает";
+		cout << result << endl;
+	}
+};
+
+//
+class LazyProgrammerAdapter : public Employee {
+	LazyProgrammer* programmer;
+public:
+	LazyProgrammerAdapter(){}
+	LazyProgrammerAdapter(LazyProgrammer* p) : programmer(p) {}
+	void toWork() {
+		programmer->KindatoWork();
+	}
+
+};
+
 // Список Работников
-class ListEmployees{
+class ListEmployees {
 	vector<Employee*> employees;
 public:
 	void Add(Employee* e) {
 		employees.push_back(e);
-	}
-	string RandomName() {
-		return names[rand() % namesCount];
 	}
 	// выводит на экран
 	void WorkAll() {
@@ -79,35 +107,40 @@ public:
 	}
 };
 
-// ЛенивыйПрограммист - Адаптер
-class LazyProgrammer : public Employee {
-	string mName;
-	bool mustWork() {
-		return rand() % 2 == 0;
+string getRandomName() {
+	const int namesCount = 5; // Количество имен
+	string names[] = { "Паша", "Вася", "Денис", "Иван", "Николай" };
+	return names[rand() % namesCount] + "#" + to_string(rand() % 100);
+}
+
+Employee* getRandonEmployee() {
+	int randomChoice = rand() % TOTALWORKERS;
+	string name = getRandomName();
+	switch (randomChoice)
+	{
+	case CASHIER:
+		return new Cashier(name);
+	case MANAGER:
+		return new Manager(name);
+	case ACCOUNTANT:
+		return new Accountant(name);
+	case LAZYDEVELOPER:
+		return new LazyProgrammerAdapter(new LazyProgrammer(name));
+	default:
+		return nullptr;
 	}
-public:
-	LazyProgrammer() {}
-	LazyProgrammer(string n) : mName(n) {}
-	void toWork() {
-		mustWork() ? cout << "Ленивый " << mName << " программист работает\n" :
-			cout << "Ленивый " << mName << " программист не работает\n";
-	}
-};
+}
 
 int main() {
 	setlocale(LC_ALL, "");
 	srand(time(0));
 	ListEmployees l;
-
+	int amountOfEmployees = 10;
 	// Добавляем работников
-	l.Add(new Accountant(l.RandomName()));
-	l.Add(new Manager(l.RandomName()));
-	l.Add(new Cashier(l.RandomName()));
 
-	// Добавляем ленивого программиста
-	l.Add(new LazyProgrammer(l.RandomName()));
-
-	// Вызываем метод РаботатьВсем()
+	for (size_t i = 0; i < amountOfEmployees; i++)
+		l.Add(getRandonEmployee());
+	
 	l.WorkAll();
 
 	return 0;
