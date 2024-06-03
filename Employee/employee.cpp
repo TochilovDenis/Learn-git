@@ -35,7 +35,6 @@ public:
 class Accountant : public Employee {
 	string mName;
 public:
-	Accountant() {}
 	Accountant(string n) : mName(n) {}
 	// выводит на экран
 	void toWork() {
@@ -46,7 +45,6 @@ public:
 class Manager : public Employee {
 	string mName;
 public:
-	Manager() {}
 	Manager(string n) : mName(n) {}
 	// выводит на экран
 	void toWork() {
@@ -57,7 +55,6 @@ public:
 class Cashier : public Employee {
 	string mName;
 public:
-	Cashier() {}
 	Cashier(string n) : mName(n) {}
 	// выводит на экран
 	void toWork() {
@@ -70,7 +67,6 @@ public:
 class LazyProgrammer {
 	string mName;
 public:
-	LazyProgrammer() {}
 	LazyProgrammer(string n) : mName(n) {}
 	void KindatoWork() {
 		string result = (rand() % 100) % 2 == 0 ?
@@ -84,7 +80,6 @@ public:
 class LazyProgrammerAdapter : public Employee {
 	LazyProgrammer* programmer;
 public:
-	LazyProgrammerAdapter(){}
 	LazyProgrammerAdapter(LazyProgrammer* p) : programmer(p) {}
 	void toWork() {
 		programmer->KindatoWork();
@@ -92,26 +87,12 @@ public:
 
 };
 
-// Список Работников
-class ListEmployees {
-	vector<Employee*> employees;
-public:
-	void Add(Employee* e) {
-		employees.push_back(e);
-	}
-	// выводит на экран
-	void WorkAll() {
-		for (Employee* e : employees) {
-			e->toWork();
-		}
-	}
-};
-
 string getRandomName() {
 	const int namesCount = 5; // Количество имен
 	string names[] = { "Паша", "Вася", "Денис", "Иван", "Николай" };
 	return names[rand() % namesCount] + "#" + to_string(rand() % 100);
 }
+
 
 Employee* getRandonEmployee() {
 	int randomChoice = rand() % TOTALWORKERS;
@@ -128,18 +109,38 @@ Employee* getRandonEmployee() {
 		return new LazyProgrammerAdapter(new LazyProgrammer(name));
 	default:
 		return nullptr;
+		break;
 	}
 }
 
+// Список Работников
+class ListEmployees {
+	vector<Employee*> employees;
+	int TotalOfEmployees;
+public:
+	ListEmployees(int t) :TotalOfEmployees(t) {}
+	void Add(Employee* e) {
+		employees.push_back(e);
+	}
+	// выводит на экран
+	void WorkAll() {
+		for (Employee* e : employees) {
+			e->toWork();
+		}
+	}
+	void FillRandomEmployee() {
+		for (size_t i = 0; i < TotalOfEmployees; i++)
+			employees.push_back(getRandonEmployee());
+	}
+};
 int main() {
 	setlocale(LC_ALL, "");
 	srand(time(0));
-	ListEmployees l;
+	
 	int amountOfEmployees = 10;
-	// Добавляем работников
+	ListEmployees l(amountOfEmployees);
 
-	for (size_t i = 0; i < amountOfEmployees; i++)
-		l.Add(getRandonEmployee());
+	l.FillRandomEmployee();
 	
 	l.WorkAll();
 
